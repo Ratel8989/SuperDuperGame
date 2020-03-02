@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        com.example.superdupergame.anvil.models.AppConstants.initialization(this.getApplicationContext());
     }
 
     public void pacman(View v){

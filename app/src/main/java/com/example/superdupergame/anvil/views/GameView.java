@@ -6,6 +6,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.superdupergame.anvil.GameThread;
+import com.example.superdupergame.anvil.models.AppConstants;
 
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback{
@@ -58,8 +59,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
     @Override //Called when key Pressed Down
     public boolean onKeyDown(int keyCode, KeyEvent key)
     {
-        if(keyCode == KeyEvent.KEYCODE_W) //If presses key W
+        switch (keyCode)//If presses key W
         {
+            case KeyEvent.KEYCODE_A:
+                AppConstants.direction = -1;
+                break;
+            case KeyEvent.KEYCODE_D:
+                AppConstants.direction = 1;
+                break;
+            case KeyEvent.KEYCODE_SPACE:
+
+                break;
 
         }
 

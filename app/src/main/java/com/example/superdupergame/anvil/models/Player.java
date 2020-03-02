@@ -10,8 +10,9 @@ public class Player {
     {
         health = 3;
         //Set Starting XPosition
+        xPosition = 300;
         //Set Starting YPosition
-
+        yPosition = 300;
         velocity = 0;
     }
 

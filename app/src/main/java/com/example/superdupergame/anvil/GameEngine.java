@@ -23,6 +23,12 @@ public class GameEngine {
     {
         if(gameState == 1) //If Game is Playing
         {
+            if (AppConstants.direction == -1){
+                player.setxPosition(player.getxPosition() - 5);
+            }else if (AppConstants.direction == 1){
+                player.setxPosition(player.getxPosition() + 5);
+            }
+
             canvas.drawBitmap(AppConstants.getBitmapBank().getPlayer(), player.getxPosition(), player.getyPosition(), null);
 
             //Movement Logic based on key presses from view

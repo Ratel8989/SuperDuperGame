@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import com.example.superdupergame.anvil.models.AppConstants;
 import com.example.superdupergame.anvil.views.GameView;
 
 public class GameActivity extends Activity
@@ -15,6 +16,7 @@ public class GameActivity extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         GameView gameView = new GameView(this);
         setContentView(gameView);
     }

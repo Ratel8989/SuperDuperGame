@@ -2,6 +2,9 @@ package com.example.superdupergame.anvil.models;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.example.superdupergame.R;
 
 public class BitmapBank {
 
@@ -10,8 +13,9 @@ public class BitmapBank {
 
     public BitmapBank(Resources res) //BitmapBank Constructor
     {
+        player = BitmapFactory.decodeResource(res, R.drawable.llama);
         //Initialize all Player Bitmaps in here:
-        //player = BitmapFactory.decodeResource(res, R.drawable.llama);
+
     }
 
     public Bitmap getPlayer() //Gets Player Bitmap

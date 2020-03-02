@@ -9,10 +9,15 @@ import com.example.superdupergame.anvil.GameEngine;
 
 public class AppConstants {
 
-    static BitmapBank bitmapBank;
-    static GameEngine gameEngine;
+    private static BitmapBank bitmapBank;
+    private static GameEngine gameEngine;
 
-    static int SCREEN_WIDTH, SCREEN_HEIGHT;
+    public static int SCREEN_WIDTH, SCREEN_HEIGHT;
+
+    public static int direction;
+    //0 = no movement,
+    // 1 = right,
+    //-1 = left
 
     public static void initialization(Context context){ //Initializes Everything in this class
         setScreenSize(context);
