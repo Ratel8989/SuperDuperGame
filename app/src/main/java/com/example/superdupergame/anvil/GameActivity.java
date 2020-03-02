@@ -1,4 +1,4 @@
-package com.example.gamedemo;
+package com.example.superdupergame.anvil;
 
 import android.app.Activity;
 import android.os.Bundle;
