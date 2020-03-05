@@ -35,7 +35,11 @@ public class GameThread extends Thread{
                 synchronized (surfaceHolder)
                 {
                     /* Put all your updates in here */
+                    AppConstants.getGameEngine().updateAndDrawBackground(canvas);
+                    AppConstants.getGameEngine().drawPlayableArea(canvas);
                     AppConstants.getGameEngine().updateAndDrawPlayer(canvas);
+                    AppConstants.getGameEngine().updateAndDrawAnvil(canvas);
+                    surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }
 

@@ -16,7 +16,7 @@ public class GameActivity extends Activity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        AppConstants.initialization(this.getApplicationContext());
         GameView gameView = new GameView(this);
         setContentView(gameView);
     }

@@ -6,29 +6,31 @@ public class Player {
     private int velocity;
     private int health;
 
+
     public Player()
     {
         health = 3;
         //Set Starting XPosition
-        xPosition = 300;
+        xPosition = (AppConstants.getBitmapBank().getTestAreaWidth() / 2) + AppConstants.playableX - (AppConstants.getBitmapBank().getPlayerWidth() / 2);
         //Set Starting YPosition
-        yPosition = 300;
+        yPosition = AppConstants.playabley + AppConstants.getBitmapBank().getTestAreaHeight() - AppConstants.getBitmapBank().getPlayerHeight();
         velocity = 0;
     }
 
-    public int getxPosition() {
+    public int getX() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setX(int xPosition) {
         this.xPosition = xPosition;
+
     }
 
-    public int getyPosition() {
+    public int getY() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setY(int yPosition) {
         this.yPosition = yPosition;
     }
 

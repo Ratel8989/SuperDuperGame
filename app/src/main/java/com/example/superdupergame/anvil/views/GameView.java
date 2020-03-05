@@ -72,7 +72,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
                 break;
 
         }
-
         return true;
     }
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent key){
+//        switch (keyCode){
+//
+//        }
+//    }
 }

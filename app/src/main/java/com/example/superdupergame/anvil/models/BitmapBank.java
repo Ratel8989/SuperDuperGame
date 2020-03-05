@@ -10,12 +10,40 @@ public class BitmapBank {
 
     Bitmap player; //Stores Player Bitmap
     Bitmap anvil;
+    Bitmap testArea;
 
     public BitmapBank(Resources res) //BitmapBank Constructor
     {
-        player = BitmapFactory.decodeResource(res, R.drawable.llama);
+        player = BitmapFactory.decodeResource(res, R.drawable.player);
+        anvil = BitmapFactory.decodeResource(res, R.drawable.anvil);
+        testArea = BitmapFactory.decodeResource(res, R.drawable.test_area);
         //Initialize all Player Bitmaps in here:
 
+    }
+    public int getTestAreaWidth(){
+        return testArea.getWidth();
+    }
+    public int getTestAreaHeight(){
+        return testArea.getHeight();
+    }
+
+    public Bitmap getTestArea() {
+        return testArea;
+    }
+
+    public Bitmap getAnvil() //Gets Player Bitmap
+    {
+        return anvil;
+    }
+
+    public int getAnvilWidth() //Gets Width of Player Bitmap
+    {
+        return anvil.getWidth();
+    }
+
+    public int getAnvilHeight() //Gets Height of Player Bitmap
+    {
+        return anvil.getHeight();
     }
 
     public Bitmap getPlayer() //Gets Player Bitmap

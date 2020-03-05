@@ -13,23 +13,36 @@ public class AppConstants {
     private static GameEngine gameEngine;
 
     public static int SCREEN_WIDTH, SCREEN_HEIGHT;
+    // SCREEN WIDTH:1440
+    // SCREEN HEIGHT:2392
 
+    public static int playerSpeed;
+    public static int startingAnvilSpeed;
     public static int direction;
     //0 = no movement,
     // 1 = right,
     //-1 = left
+    public static int playableX;
+    public static int playableMaxX;
+    public static int playabley;
+
 
     public static void initialization(Context context){ //Initializes Everything in this class
+        bitmapBank = new BitmapBank(context.getResources());
         setScreenSize(context);
         setGameConstants();
-        bitmapBank = new BitmapBank(context.getResources());
+
         gameEngine = new GameEngine();
     }
 
     //This method will set constants you add to this class
     public static void setGameConstants()
     {
-
+        playerSpeed = 10;
+        playableX = 185;
+        //playableMaxX = playableX + bitmapBank.getTestAreaWidth();
+        playabley = 80;
+        startingAnvilSpeed = 10;
     }
 
     //This Method will set screen variables to current screen's size
