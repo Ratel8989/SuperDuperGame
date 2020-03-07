@@ -23,9 +23,9 @@
             />
 
         <activity
-            android:name=".StartActivity"
+            android:name=".duck.views.StartActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.noActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
