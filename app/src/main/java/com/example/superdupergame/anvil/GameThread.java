@@ -39,6 +39,7 @@ public class GameThread extends Thread{
                     AppConstants.getGameEngine().drawPlayableArea(canvas);
                     AppConstants.getGameEngine().updateAndDrawPlayer(canvas);
                     AppConstants.getGameEngine().updateAndDrawAnvil(canvas);
+                    AppConstants.getGameEngine().updateHealthAndTimer(canvas);
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }

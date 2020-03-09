@@ -11,6 +11,7 @@ public class Anvil {
     private int speed;
     private boolean isActive;
     public Anvil(int startingPos) {
+        startingPos = startingPos % 10;
         this.xPosition = AppConstants.playableX + (AppConstants.getBitmapBank().getAnvilWidth() * startingPos);
         this.yPosition = AppConstants.playabley;
         this.speed = AppConstants.startingAnvilSpeed;

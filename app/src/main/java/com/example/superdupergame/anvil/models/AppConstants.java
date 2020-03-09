@@ -5,12 +5,15 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.example.superdupergame.anvil.GameActivity;
 import com.example.superdupergame.anvil.GameEngine;
 
 public class AppConstants {
 
     private static BitmapBank bitmapBank;
     private static GameEngine gameEngine;
+    private static GameActivity gameActivity;
+    private static SoundBank soundBank;
 
     public static int SCREEN_WIDTH, SCREEN_HEIGHT;
     // SCREEN WIDTH:1440
@@ -26,9 +29,17 @@ public class AppConstants {
     public static int playableMaxX;
     public static int playabley;
 
+    public static int points;
+    public static int anvilSpawnRate;
 
-    public static void initialization(Context context){ //Initializes Everything in this class
+    public static int immunityTimer;
+
+
+
+    public static void initialization(Context context, GameActivity activity){ //Initializes Everything in this class
+        gameActivity = activity;
         bitmapBank = new BitmapBank(context.getResources());
+        soundBank = new SoundBank(context);
         setScreenSize(context);
         setGameConstants();
 
@@ -38,11 +49,14 @@ public class AppConstants {
     //This method will set constants you add to this class
     public static void setGameConstants()
     {
-        playerSpeed = 10;
+        playerSpeed = 40;
         playableX = 185;
         //playableMaxX = playableX + bitmapBank.getTestAreaWidth();
         playabley = 80;
         startingAnvilSpeed = 10;
+        immunityTimer = 0;
+        points = 0;
+        anvilSpawnRate = 300;
     }
 
     //This Method will set screen variables to current screen's size
@@ -69,5 +83,13 @@ public class AppConstants {
 
     public static GameEngine getGameEngine() {
         return gameEngine;
+    }
+
+    public static GameActivity getGameActivity() {
+        return gameActivity;
+    }
+
+    public static SoundBank getSoundBank() {
+        return soundBank;
     }
 }
