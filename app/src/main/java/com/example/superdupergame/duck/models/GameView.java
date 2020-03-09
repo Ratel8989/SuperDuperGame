@@ -16,9 +16,11 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.example.superdupergame.R;
-import com.example.superdupergame.duck.views.GameActivity;
-import com.example.superdupergame.duck.views.StartActivity;
+import com.example.superdupergame.duck.Activities.GameActivity;
+import com.example.superdupergame.duck.Activities.StartActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class GameView extends SurfaceView implements Runnable {
     private SoundPool soundPool;
     private List<Spit> duckSpit;
     private int sound;
-    private Duck flight;
+    private Duck flyingDuck;
     private GameActivity activity;
     private Background background1, background2;
 
@@ -77,18 +79,20 @@ public class GameView extends SurfaceView implements Runnable {
         screenRatioX = 1920f / screenX;
         screenRatioY = 1080f / screenY;
 
+        //Getting the background
         background1 = new Background(screenX, screenY, getResources());
         background2 = new Background(screenX, screenY, getResources());
 
-        flight = new Duck(this, screenY, getResources());
-
+        flyingDuck = new Duck(this, screenY, getResources());
         duckSpit = new ArrayList<>();
 
         background2.x = screenX;
 
+        //Uses the attributes below when called to draw something
         paint = new Paint();
         paint.setTextSize(128);
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.parseColor("#FF9800"));
+        paint.setTypeface(ResourcesCompat.getFont(getContext(), R.font.duckfont));
 
         gooseList = new Goose[4];
         for (int i = 0;i < 4;i++) {
@@ -134,16 +138,16 @@ public class GameView extends SurfaceView implements Runnable {
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         // Moves vertically if isGoingUp is true
-        if (flight.isGoingUp)
-            flight.y -= appConstant.duckVerticalSpeed * screenRatioY;
+        if (flyingDuck.isGoingUp)
+            flyingDuck.y -= appConstant.duckVerticalSpeed * screenRatioY;
         else
-            flight.y += appConstant.duckVerticalSpeed * screenRatioY;
+            flyingDuck.y += appConstant.duckVerticalSpeed * screenRatioY;
 
-        if (flight.y < 0)
-            flight.y = 0;
+        if (flyingDuck.y < 0)
+            flyingDuck.y = 0;
 
-        if (flight.y >= screenY - flight.height)
-            flight.y = screenY - flight.height;
+        if (flyingDuck.y >= screenY - flyingDuck.height)
+            flyingDuck.y = screenY - flyingDuck.height;
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -167,12 +171,12 @@ public class GameView extends SurfaceView implements Runnable {
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        //Checking game over cases for each gooseList
+        //Checking game over cases for each goose
         for (Goose goose : gooseList) {
-            //Speed of the gooseList
+            //Speed of the goose
             goose.x -= appConstant.gooseSpeed;
 
-            //If the gooseList hits the x-axis
+            //If the goose hits the x-axis
             if (goose.x + goose.width < 0) {
                 if (!goose.wasShot) {
                     gameIsOver = true;
@@ -186,13 +190,13 @@ public class GameView extends SurfaceView implements Runnable {
                     goose.gooseStartXLocation = (int) (10 * screenRatioX);
 
                 goose.x = screenX;
-                //Places gooseList randomly on the y-axis
+                //Places goose randomly on the y-axis
                 goose.y = rng.nextInt(screenY - goose.height);
 
                 goose.wasShot = false;
             }
 
-            if (Rect.intersects(goose.getCollisionShape(), flight.getCollisionShape())) {
+            if (Rect.intersects(goose.getCollisionShape(), flyingDuck.getCollisionShape())) {
                 gameIsOver = true;
                 return;
             }
@@ -218,14 +222,15 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (gameIsOver) {
                 gameIsPlaying = false;
-                canvas.drawBitmap(flight.duckDead(), flight.x, flight.y, paint);
+                canvas.drawBitmap(flyingDuck.duckDead(), flyingDuck.x, flyingDuck.y, paint);
                 getHolder().unlockCanvasAndPost(canvas);
                 saveIfHighScore();
                 waitBeforeExiting ();
+
                 return;
             }
 
-            canvas.drawBitmap(flight.getFlight(), flight.x, flight.y, paint);
+            canvas.drawBitmap(flyingDuck.getFlight(), flyingDuck.x, flyingDuck.y, paint);
 
             for (Spit spit : duckSpit)
                 canvas.drawBitmap(spit.spit, spit.x, spit.y, paint);
@@ -292,19 +297,19 @@ public class GameView extends SurfaceView implements Runnable {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Keyboard and screen touch functions
 
-    //If left or right side of screen is touched
+    //If bottom left or bottom right side of screen is touched
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getX() < screenX / 2) {
-                    flight.isGoingUp = true;
+                if (event.getX() < screenX / 2 && event.getY() > screenY /2) {
+                    flyingDuck.isGoingUp = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                flight.isGoingUp = false;
-                if (event.getX() > screenX / 2)
-                    flight.toShoot++;
+                flyingDuck.isGoingUp = false;
+                if (event.getX() > screenX / 2 && event.getY() > screenY /2)
+                    flyingDuck.toShoot++;
                 break;
         }
         return true;
@@ -314,10 +319,10 @@ public class GameView extends SurfaceView implements Runnable {
         switch (keyCode) {
             case KeyEvent.KEYCODE_W:
                 Log.d("KEY: ", keyCode + "");
-                flight.isGoingUp = true;
+                flyingDuck.isGoingUp = true;
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                flight.toShoot++;
+                flyingDuck.toShoot++;
                 break;
         }
         return true;
@@ -326,7 +331,7 @@ public class GameView extends SurfaceView implements Runnable {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_W:
-                flight.isGoingUp = false;
+                flyingDuck.isGoingUp = false;
                 break;
         }
         return true;
@@ -338,8 +343,8 @@ public class GameView extends SurfaceView implements Runnable {
             soundPool.play(sound, 1, 1, 0, 0, 1);
         }
         Spit spit = new Spit(getResources());
-        spit.x = flight.x + flight.width;
-        spit.y = flight.y + (flight.height / 2);
+        spit.x = flyingDuck.x + flyingDuck.width;
+        spit.y = flyingDuck.y + (flyingDuck.height / 2);
         duckSpit.add(spit);
 
     }

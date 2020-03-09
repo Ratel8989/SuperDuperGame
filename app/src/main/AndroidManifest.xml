@@ -18,12 +18,13 @@
 
         </activity>
 
-        <activity
-            android:name=".anvil.GameActivity"
+        <activity android:name=".duck.Activities.GameActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             />
 
         <activity
-            android:name=".duck.views.StartActivity"
+            android:name=".duck.Activities.StartActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.superdupergame.duck.views.GameActivity;
-import com.example.superdupergame.duck.views.StartActivity;
+import com.example.superdupergame.duck.Activities.StartActivity;
 
 
 public class MainActivity extends AppCompatActivity {
