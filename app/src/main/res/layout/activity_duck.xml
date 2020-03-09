@@ -52,4 +52,34 @@
         android:id="@+id/volumeCtrl"
         android:src="@drawable/ic_volume_up_black_24dp"/>
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/play"
+        android:layout_centerInParent="true"
+
+        >
+
+        <RadioButton
+            android:id="@+id/radio_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Egg"
+            android:checked="true"
+            />
+        <RadioButton
+            android:id="@+id/radio_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duckling"
+            />
+        <RadioButton
+            android:id="@+id/radio_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adult"
+            />
+    </RadioGroup>
+
 </RelativeLayout>

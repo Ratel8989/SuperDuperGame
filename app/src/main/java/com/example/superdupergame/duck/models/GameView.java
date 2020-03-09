@@ -17,12 +17,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 import com.example.superdupergame.R;
-import com.example.superdupergame.duck.models.*;
-import com.example.superdupergame.duck.models.AppConstant;
-import com.example.superdupergame.duck.models.Background;
-import com.example.superdupergame.duck.models.Duck;
-import com.example.superdupergame.duck.models.Goose;
-import com.example.superdupergame.duck.models.Spit;
 import com.example.superdupergame.duck.views.GameActivity;
 import com.example.superdupergame.duck.views.StartActivity;
 
@@ -49,7 +43,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     ///
     AppConstant appConstant = new AppConstant();
-
 
     public GameView(GameActivity activity, int screenX, int screenY) {
 
@@ -117,6 +110,21 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update () {
+
+        //Speed increase after x frames to make the game harder
+        appConstant.perUpdateCounter++;
+        if(appConstant.perUpdateCounter > appConstant.amountOfFramesForUpdate) {
+            appConstant.perUpdateCounter = 0;
+
+            appConstant.backgroundSpeed += appConstant.frameBackgroundSpeed;
+            appConstant.gooseSpeed += appConstant.frameGooseSpeed;
+            appConstant.duckVerticalSpeed += appConstant.frameDuckVerticalSpeed ;
+            appConstant.spitSpeed += appConstant.frameSpitSpeed;
+        }
+
+
+
+
         //Makes the moving background
         background1.x -= appConstant.backgroundSpeed;
         background2.x -= appConstant.backgroundSpeed;
@@ -336,3 +344,4 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 }
+

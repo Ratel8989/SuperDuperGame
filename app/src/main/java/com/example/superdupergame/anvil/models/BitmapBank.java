@@ -14,9 +14,9 @@ public class BitmapBank {
 
     public BitmapBank(Resources res) //BitmapBank Constructor
     {
-        player = BitmapFactory.decodeResource(res, R.drawable.player);
-        anvil = BitmapFactory.decodeResource(res, R.drawable.anvil);
-        testArea = BitmapFactory.decodeResource(res, R.drawable.test_area);
+//        player = BitmapFactory.decodeResource(res, R.drawable.player);
+//        anvil = BitmapFactory.decodeResource(res, R.drawable.anvil);
+//        testArea = BitmapFactory.decodeResource(res, R.drawable.test_area);
         //Initialize all Player Bitmaps in here:
 
     }
