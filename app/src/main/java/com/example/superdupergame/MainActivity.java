@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.superdupergame.duck.views.GameActivity;
+import com.example.superdupergame.duck.views.StartActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void duck(View v)
     {
-        Intent intent = new Intent(this, com.example.superdupergame.duck.GameActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
         finish();
     }
