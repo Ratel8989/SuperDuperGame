@@ -43,6 +43,7 @@ public class GameEngine {
         // 2 - Game Over (Player Died)
         // 3 - Done
         gameState = 1;
+        AppConstants.getSoundBank().playBackground01();
     }
 
     //Called by GameThread every X milliseconds
@@ -82,13 +83,16 @@ public class GameEngine {
                 if (currentFrame > 9) {
                     currentFrame = 0;
                     AppConstants.getBitmapBank().shrinkPlayer(player.getHealth());
+                    player.updateY();
                 }
                 player.setSquishFrame(currentFrame);
 
             }
             canvas.drawText("Lives: " + player.getHealth(), 180, 300, scorePaint);
             if (player.getHealth() < 1) {
+                AppConstants.getSoundBank().stobBackground01();
                 gameState = 2;
+
             }
 
 
@@ -131,7 +135,6 @@ public class GameEngine {
     }
 
     private void updatePlayer() {
-        //TODO make movement less bad lmao
         if (AppConstants.direction == -1 && player.getX() > AppConstants.playableX) {
             player.setX(player.getX() - AppConstants.playerSpeed);
         } else if (AppConstants.direction == 1 && player.getX() + AppConstants.getBitmapBank().getPlayerWidth() < AppConstants.playableX + AppConstants.getBitmapBank().getTestAreaWidth()) {
@@ -160,7 +163,6 @@ public class GameEngine {
                     (player.getX() + playerWidth > anvil.getX() && player.getX() + playerWidth < anvil.getX() + anvilWidth)) {
                 if ((player.getY() > anvil.getY() && player.getY() < anvil.getY() + anvilHeight) ||
                         (player.getY() + playerHeight > anvil.getY() && player.getY() + playerHeight < anvil.getY() + anvilHeight)) {
-                    //TODO implement health and lose conditions
                     if (AppConstants.immunityTimer < 1) {
                         player.setHealth(player.getHealth() - 1);
                         AppConstants.immunityTimer = 30;
@@ -175,13 +177,4 @@ public class GameEngine {
 
     }
 
-
-    //Desynchronized  anvils
-    //make a second Anvil set that can be dropped out of sync from the first set
-    //
-    //Change difficulty based on points
-    //difficulty should increase the number of anvils per row, add more rows, increase speed
-    //algorithmic difficulty?
-    //Do health and lose conditions
-    //
 }

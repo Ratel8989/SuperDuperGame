@@ -23,6 +23,7 @@
 
         <activity
             android:name=".duck.Activities.GameActivity"
+            android:screenOrientation="landscape"
             />
 
         <activity
@@ -31,6 +32,10 @@
 
         <activity
             android:name=".anvil.GameActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".AnvilGameOverActivity"
+            android:screenOrientation="portrait"
             />
     </application>
 
