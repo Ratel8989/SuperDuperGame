@@ -6,20 +6,24 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 import com.example.superdupergame.R;
+import com.example.superdupergame.duck.GameView;
 
-import static com.example.superdupergame.duck.models.GameView.*;
+import static com.example.superdupergame.duck.GameView.*;
 
 
 public class Duck {
 
-    int toShoot = 0;
-    boolean isGoingUp = false;
-    int x, y, width, height, duckCount = 0, shootCounter = 1;
-    Bitmap duck1, duck2,duck3, duck4, duckshoot1, duckshoot2, duckshoot3, duckshoot4, kiaduck;
+    public int toShoot = 0;
+    public boolean isGoingUp = false;
+    private int x, y, width, height, duckCount = 0, shootCounter = 1;
+    public Bitmap duck1, duck2,duck3, duck4, duckshoot1, duckshoot2, duckshoot3, duckshoot4, kiaduck;
     private GameView gameView;
     private AppConstant appConstant = new AppConstant();
 
-    Duck(GameView gameView, int screenY, Resources res) {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Duck(GameView gameView, int screenY, Resources res) {
 
         this.gameView = gameView;
 
@@ -28,8 +32,8 @@ public class Duck {
         duck3 = BitmapFactory.decodeResource(res, R.drawable.duck3);
         duck4 = BitmapFactory.decodeResource(res, R.drawable.duck4);
 
-        width = (int)((duck1.getWidth()/appConstant.duckImgScale)*screenRatioX);
-        height = (int)((duck1.getHeight()/appConstant.duckImgScale)*screenRatioY);
+        width = (int)((duck1.getWidth()/appConstant.getDuckImgScale())*screenRatioX);
+        height = (int)((duck1.getHeight()/appConstant.getDuckImgScale())*screenRatioY);
 
         duck1 = Bitmap.createScaledBitmap(duck1, width, height, false);
         duck2 = Bitmap.createScaledBitmap(duck2, width, height, false);
@@ -54,7 +58,21 @@ public class Duck {
 
     }
 
-    Bitmap getFlight () {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Getters and setters
+    public int getX() {return x;}
+
+    public int getY() {return y;}
+    public void setY(int y) {this.y = y;}
+
+    public int getWidth() {return width;}
+
+    public int getHeight() {return height; }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Bitmap getFlight () {
 
         if (toShoot != 0) {
 
@@ -108,11 +126,11 @@ public class Duck {
         return duck4;
     }
 
-    Rect getCollisionShape () {
+    public Rect getCollisionShape () {
         return new Rect(x, y, x + width, y + height);
     }
 
-    Bitmap duckDead() {
+    public Bitmap duckDead() {
         return kiaduck;
     }
 
