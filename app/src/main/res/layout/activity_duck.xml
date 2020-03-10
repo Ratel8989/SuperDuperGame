@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".duck.views.StartActivity">
+    tools:context=".duck.Activities.StartActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/play"
-        android:layout_below="@+id/highScoreTxt"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/duckfont"
         android:text="Duck... Duck... Goose!"
         android:textColor="#FF9800"
-        android:textSize="55sp"
+        android:textSize="40sp"
         android:textStyle="bold|italic" />
 
     <Button
@@ -29,20 +30,26 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:backgroundTint="#FFC107"
+        android:fontFamily="@font/duckfont"
         android:text="Quack"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold|italic" />
 
     <TextView
+        android:id="@+id/highScoreTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/duckfont"
+        android:text="High Score: "
+        android:textColor="#1D79BD"
         android:textSize="24sp"
-        android:textColor="#000000"
-        android:text="High Score"
-        android:id="@+id/highScoreTxt"
-        android:layout_margin="16dp"
-        android:layout_alignParentRight="true"/>
+        android:textStyle="bold|italic" />
 
     <ImageView
         android:layout_width="36dp"
@@ -65,21 +72,50 @@
             android:id="@+id/radio_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Egg"
+            android:buttonTint="#FF9800"
             android:checked="true"
-            />
+            android:fontFamily="@font/duckfont"
+            android:text="Egg"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <RadioButton
             android:id="@+id/radio_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="#FF9800"
+            android:checked="false"
+            android:fontFamily="@font/duckfont"
             android:text="Duckling"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <RadioButton
             android:id="@+id/radio_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="#FF9800"
+            android:fontFamily="@font/duckfont"
             android:text="Adult"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="-8dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/duckfont"
+        android:text="Exit"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>

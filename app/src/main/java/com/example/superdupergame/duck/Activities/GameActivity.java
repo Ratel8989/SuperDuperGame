@@ -1,4 +1,4 @@
-package com.example.superdupergame.duck.views;
+package com.example.superdupergame.duck.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.example.superdupergame.duck.views;
+package com.example.superdupergame.duck.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.superdupergame.MainActivity;
 import com.example.superdupergame.R;
 import com.example.superdupergame.duck.models.AppConstant;
 
@@ -31,6 +32,14 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_duck);
 
         radioGroup = findViewById(R.id.radioGroup);
+
+        findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Return To Main menu
+                startActivity(new Intent(StartActivity.this, MainActivity.class));
+            }
+        });
 
 
         findViewById(R.id.play).setOnClickListener(new View.OnClickListener() {
