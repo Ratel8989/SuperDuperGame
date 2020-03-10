@@ -5,6 +5,7 @@ public class Player {
     private int yPosition;
     private int velocity;
     private int health;
+    private int squishFrame;
 
 
     public Player()
@@ -24,6 +25,10 @@ public class Player {
     public void setX(int xPosition) {
         this.xPosition = xPosition;
 
+    }
+
+    public void updateY(){
+        yPosition = AppConstants.playabley + AppConstants.getBitmapBank().getTestAreaHeight() - AppConstants.getBitmapBank().getPlayerHeight();
     }
 
     public int getY() {
@@ -50,4 +55,11 @@ public class Player {
         this.health = health;
     }
 
+    public int getSquishFrame() {
+        return squishFrame;
+    }
+
+    public void setSquishFrame(int squishFrame) {
+        this.squishFrame = squishFrame;
+    }
 }

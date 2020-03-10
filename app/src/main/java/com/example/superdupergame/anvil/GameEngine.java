@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.superdupergame.AnvilGameOverActivity;
 import com.example.superdupergame.anvil.models.*;
+import com.example.superdupergame.duck.models.AppConstant;
 
 import java.util.Random;
 
@@ -69,14 +70,28 @@ public class GameEngine {
     public void updateHealthAndTimer(Canvas canvas){
         if (gameState == 1) {
             AppConstants.points++;
-            canvas.drawText(AppConstants.points + "", 100, 100, scorePaint);
+            canvas.drawText(AppConstants.points + "", 180, 200, scorePaint);
             if (AppConstants.immunityTimer > 0) {
                 AppConstants.immunityTimer--;
+
+                int currentFrame = player.getSquishFrame();
+                canvas.drawBitmap(AppConstants.getBitmapBank().getSquish(currentFrame), player.getX() - 50, player.getY() - 30,null);
+                if (AppConstants.immunityTimer % 3 == 0) {
+                    currentFrame++;
+                }
+                if (currentFrame > 9) {
+                    currentFrame = 0;
+                    AppConstants.getBitmapBank().shrinkPlayer(player.getHealth());
+                }
+                player.setSquishFrame(currentFrame);
+
             }
-            canvas.drawText("Health: " + player.getHealth(), 100, 400, scorePaint);
+            canvas.drawText("Lives: " + player.getHealth(), 180, 300, scorePaint);
             if (player.getHealth() < 1) {
                 gameState = 2;
             }
+
+
         } else if (gameState == 2){
             AppConstants.getGameActivity().sendToGameOver();
             gameState = 3;
@@ -149,6 +164,7 @@ public class GameEngine {
                     if (AppConstants.immunityTimer < 1) {
                         player.setHealth(player.getHealth() - 1);
                         AppConstants.immunityTimer = 30;
+
                         AppConstants.getSoundBank().playHit();
                     }
 

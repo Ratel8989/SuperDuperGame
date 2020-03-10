@@ -18,9 +18,8 @@
 
         </activity>
 
-        <activity
-            android:name=".anvil.GameActivity"
-            />
+        <activity android:name=".anvil.GameActivity" />
+        <activity android:name=".AnvilGameOverActivity"/>
 
         <activity
             android:name=".duck.views.StartActivity"
