@@ -37,6 +37,9 @@
         <activity
             android:name=".anvil.GameActivity"
             />
+        <activity
+            android:name=".AnvilGameOverActivity"
+            />
     </application>
 
 </manifest>
