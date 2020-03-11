@@ -51,7 +51,7 @@ public class AppConstants {
     {
         playerSpeed = 40;
         playableX = 185;
-        //playableMaxX = playableX + bitmapBank.getTestAreaWidth();
+        playableMaxX = playableX + bitmapBank.getTestAreaWidth();
         playabley = 80;
         startingAnvilSpeed = 10;
         immunityTimer = 0;

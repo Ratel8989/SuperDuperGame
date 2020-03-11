@@ -86,7 +86,7 @@ public class GameEngine {
             }
             canvas.drawText("Lives: " + player.getHealth(), 180, 300, scorePaint);
             if (player.getHealth() < 1) {
-                AppConstants.getSoundBank().stobBackground01();
+                AppConstants.getSoundBank().stopBackground01();
                 gameState = 2;
 
             }
@@ -131,9 +131,14 @@ public class GameEngine {
     }
 
     private void updatePlayer() {
+        Log.d("playerX", player.getX() + "");
+        Log.d("playableX", AppConstants.playableX + "");
         if (AppConstants.direction == -1 && player.getX() > AppConstants.playableX) {
             player.setX(player.getX() - AppConstants.playerSpeed);
-        } else if (AppConstants.direction == 1 && player.getX() + AppConstants.getBitmapBank().getPlayerWidth() < AppConstants.playableX + AppConstants.getBitmapBank().getTestAreaWidth()) {
+            if (player.getX() < AppConstants.playableX){
+                player.setX(AppConstants.playableX);
+            }
+        } else if (AppConstants.direction == 1 && player.getX() + AppConstants.getBitmapBank().getPlayerWidth() + 10 < AppConstants.playableX + AppConstants.getBitmapBank().getTestAreaWidth()) {
             player.setX(player.getX() + AppConstants.playerSpeed);
         }
 
