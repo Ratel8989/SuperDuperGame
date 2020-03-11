@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.example.superdupergame.AnvilGameOverActivity;
 import com.example.superdupergame.anvil.models.AppConstants;
 import com.example.superdupergame.anvil.views.GameView;
 
