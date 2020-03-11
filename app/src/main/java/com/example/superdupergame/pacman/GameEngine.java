@@ -50,11 +50,6 @@ public class GameEngine
     //Reset Timer
     private long resetTimer;
 
-    //To activate each Ghost
-    private long pinkyTimer;
-    private long inkyTimer;
-    private long clydeTimer;
-
     public GameEngine()
     {
         if(AppConstants.isNeumont)
@@ -202,72 +197,33 @@ public class GameEngine
             checkAndDoGhostSideTeleporter(redGhost);
 
 
-
-
             //Collision Logic
-            if (hasCollided(redGhost)) {
-                if (redGhost.getState() == Ghost.SCATTER_STATE || redGhost.getState() == Ghost.CHASE_STATE) {
-                    pacman.setLives(pacman.getLives() - 1);
-                    gameState = 3;
-                    resetTimer = SystemClock.uptimeMillis();
-
-                } else if (redGhost.getState() == Ghost.FRIGHTENED_STATE) {
-                    AppConstants.getSoundBank().playEatGhost();
-                    redGhost.setState(Ghost.EATEN_STATE);
-                    gameState = 2;
-                    eatTimer = SystemClock.uptimeMillis();
-                    eatCount++;
-                    AppConstants.score += 200 + (eatCount * 200);
-                    redGhost.setBeingEaten(true);
-                }
-            }
+            checkAndDoCollision(redGhost);
 
 
             //Animation Logic
-            if (redGhost.getState() == Ghost.SCATTER_STATE || redGhost.getState() == Ghost.CHASE_STATE) {
-                switch (redGhost.getDirection()) {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = currentFrame + 1 > 17 || currentFrame < 12 ? 12 : currentFrame + 1;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 5 ? 0 : currentFrame + 1;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = currentFrame + 1 > 23 || currentFrame < 18 ? 18 : currentFrame + 1;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 11 || currentFrame < 6 ? 6 : currentFrame + 1;
-                        break;
+            redGhost.setCurrentFrame(calculateNextFrame(redGhost));
+            switch(redGhost.getState())
+            {
+                case Ghost.SCATTER_STATE:
+                case Ghost.CHASE_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getRedGhost(redGhost.getCurrentFrame()), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
+                    break;
 
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getRedGhost(currentFrame), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
-            } else if (redGhost.getState() == Ghost.FRIGHTENED_STATE) {
-                if (!startBlinkingGhost)
-                    currentFrame = currentFrame + 1 > 5 ? 0 : currentFrame + 1;
-                else
-                    currentFrame = currentFrame + 1 > 11 ? 0 : currentFrame + 1;
-                canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(currentFrame), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
-            } else if (redGhost.getState() == Ghost.EATEN_STATE) {
-                switch (redGhost.getDirection()) {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = 2;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = 0;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = 3;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = 1;
-                        break;
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(currentFrame), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
+                case Ghost.FRIGHTENED_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(redGhost.getCurrentFrame()), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
+                    break;
+
+                case Ghost.EATEN_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(redGhost.getCurrentFrame()), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
+                    break;
             }
+
         } else if (gameState == 3) {
             if (SystemClock.uptimeMillis() < resetTimer + 1500) {
                 currentFrame = (currentFrame + 1) % 6 == 0 ? currentFrame - 5 : currentFrame + 1;
                 canvas.drawBitmap(AppConstants.getBitmapBank().getRedGhost(currentFrame), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
+                redGhost.setCurrentFrame(currentFrame);
             }
         } else if (gameState == 0 || gameState == 2) {
             if(!redGhost.isBeingEaten())
@@ -284,9 +240,10 @@ public class GameEngine
                     canvas.drawBitmap(AppConstants.getBitmapBank().getRedGhost(currentFrame), redGhost.getX() + AppConstants.mazeX, redGhost.getY() + AppConstants.mazeY, null);
                 }
             }
+            redGhost.setCurrentFrame(currentFrame);
         }
 
-        redGhost.setCurrentFrame(currentFrame);
+
     }
 
     public void updateAndDrawPinkGhost(Canvas canvas)
@@ -352,81 +309,33 @@ public class GameEngine
 
 
             //Collision Logic
-            if(hasCollided(pinkGhost))
-            {
-                if(pinkGhost.getState() == Ghost.SCATTER_STATE || pinkGhost.getState() == Ghost.CHASE_STATE)
-                {
-                    pacman.setLives(pacman.getLives() - 1);
-                    gameState = 3;
-                    resetTimer = SystemClock.uptimeMillis();
-
-                }else if(pinkGhost.getState() == Ghost.FRIGHTENED_STATE)
-                {
-                    AppConstants.getSoundBank().playEatGhost();
-                    pinkGhost.setState(Ghost.EATEN_STATE);
-                    gameState = 2;
-                    eatTimer = SystemClock.uptimeMillis();
-                    eatCount++;
-                    AppConstants.score += 200 + (eatCount * 200);
-                    pinkGhost.setBeingEaten(true);
-                }
-            }
-
+            checkAndDoCollision(pinkGhost);
 
 
             //Animation Logic
-            if(pinkGhost.getState() == Ghost.SCATTER_STATE || pinkGhost.getState() == Ghost.CHASE_STATE)
+            pinkGhost.setCurrentFrame(calculateNextFrame(pinkGhost));
+            switch(pinkGhost.getState())
             {
-                switch(pinkGhost.getDirection())
-                {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = currentFrame + 1 > 17 || currentFrame < 12? 12: currentFrame + 1;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 5 ? 0: currentFrame + 1;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = currentFrame + 1 > 23 || currentFrame < 18? 18: currentFrame + 1;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 11 || currentFrame < 6? 6: currentFrame + 1;
-                        break;
+                case Ghost.SCATTER_STATE:
+                case Ghost.CHASE_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getPinkGhost(pinkGhost.getCurrentFrame()), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
+                    break;
 
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getPinkGhost(currentFrame), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
+                case Ghost.FRIGHTENED_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(pinkGhost.getCurrentFrame()), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
+                    break;
+
+                case Ghost.EATEN_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(pinkGhost.getCurrentFrame()), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
+                    break;
             }
-            else if(pinkGhost.getState() == Ghost.FRIGHTENED_STATE)
-            {
-                if(!startBlinkingGhost)
-                    currentFrame = currentFrame + 1 > 5? 0: currentFrame + 1;
-                else
-                    currentFrame = currentFrame + 1 > 11? 0: currentFrame + 1;
-                canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(currentFrame), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
-            }
-            else if(pinkGhost.getState() == Ghost.EATEN_STATE)
-            {
-                switch(pinkGhost.getDirection())
-                {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = 2;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = 0;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = 3;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = 1;
-                        break;
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(currentFrame), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
-            }
+
         }else if(gameState == 3)
         {
             if(SystemClock.uptimeMillis() < resetTimer + 1500){
                 currentFrame = (currentFrame + 1) % 6 == 0? currentFrame - 5: currentFrame + 1;
                 canvas.drawBitmap(AppConstants.getBitmapBank().getPinkGhost(currentFrame), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
+                pinkGhost.setCurrentFrame(currentFrame);
             }
         }else if (gameState == 0 || gameState == 2) {
             if(!pinkGhost.isBeingEaten())
@@ -442,10 +351,10 @@ public class GameEngine
                 else {
                     canvas.drawBitmap(AppConstants.getBitmapBank().getPinkGhost(currentFrame), pinkGhost.getX() + AppConstants.mazeX, pinkGhost.getY() + AppConstants.mazeY, null);
                 }
+                pinkGhost.setCurrentFrame(currentFrame);
             }
         }
 
-        pinkGhost.setCurrentFrame(currentFrame);
     }
 
     public void updateAndDrawBlueGhost(Canvas canvas)
@@ -586,75 +495,25 @@ public class GameEngine
 
 
             //Collision Logic
-            if(hasCollided(blueGhost))
-            {
-                if(blueGhost.getState() == Ghost.SCATTER_STATE || blueGhost.getState() == Ghost.CHASE_STATE)
-                {
-                    pacman.setLives(pacman.getLives() - 1);
-                    gameState = 3;
-                    resetTimer = SystemClock.uptimeMillis();
-
-                }else if(blueGhost.getState() == Ghost.FRIGHTENED_STATE)
-                {
-                    AppConstants.getSoundBank().playEatGhost();
-                    blueGhost.setState(Ghost.EATEN_STATE);
-                    gameState = 2;
-                    eatTimer = SystemClock.uptimeMillis();
-                    eatCount++;
-                    AppConstants.score += 200 + (eatCount * 200);
-                    blueGhost.setBeingEaten(true);
-                }
-            }
-
+            checkAndDoCollision(blueGhost);
 
 
             //Animation Logic
-            if(blueGhost.getState() == Ghost.SCATTER_STATE || blueGhost.getState() == Ghost.CHASE_STATE)
+            blueGhost.setCurrentFrame(calculateNextFrame(blueGhost));
+            switch(blueGhost.getState())
             {
-                switch(blueGhost.getDirection())
-                {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = currentFrame + 1 > 17 || currentFrame < 12? 12: currentFrame + 1;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 5 ? 0: currentFrame + 1;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = currentFrame + 1 > 23 || currentFrame < 18? 18: currentFrame + 1;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = currentFrame + 1 > 11 || currentFrame < 6? 6: currentFrame + 1;
-                        break;
+                case Ghost.SCATTER_STATE:
+                case Ghost.CHASE_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getBlueGhost(blueGhost.getCurrentFrame()), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
+                    break;
 
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getBlueGhost(currentFrame), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
-            }
-            else if(blueGhost.getState() == Ghost.FRIGHTENED_STATE)
-            {
-                if(!startBlinkingGhost)
-                    currentFrame = currentFrame + 1 > 5? 0: currentFrame + 1;
-                else
-                    currentFrame = currentFrame + 1 > 11? 0: currentFrame + 1;
-                canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(currentFrame), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
-            }
-            else if(blueGhost.getState() == Ghost.EATEN_STATE)
-            {
-                switch(blueGhost.getDirection())
-                {
-                    case AppConstants.UP_DIRECTION:
-                        currentFrame = 2;
-                        break;
-                    case AppConstants.RIGHT_DIRECTION:
-                        currentFrame = 0;
-                        break;
-                    case AppConstants.DOWN_DIRECTION:
-                        currentFrame = 3;
-                        break;
-                    case AppConstants.LEFT_DIRECTION:
-                        currentFrame = 1;
-                        break;
-                }
-                canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(currentFrame), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
+                case Ghost.FRIGHTENED_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getFrightGhost(blueGhost.getCurrentFrame()), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
+                    break;
+
+                case Ghost.EATEN_STATE:
+                    canvas.drawBitmap(AppConstants.getBitmapBank().getEatenGhost(blueGhost.getCurrentFrame()), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
+                    break;
             }
         }
         else if(gameState == 3)
@@ -662,6 +521,7 @@ public class GameEngine
             if(SystemClock.uptimeMillis() < resetTimer + 1500){
                 currentFrame = (currentFrame + 1) % 6 == 0? currentFrame - 5: currentFrame + 1;
                 canvas.drawBitmap(AppConstants.getBitmapBank().getBlueGhost(currentFrame), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
+                blueGhost.setCurrentFrame(currentFrame);
             }
         }else if (gameState == 0 || gameState == 2) {
             if(!blueGhost.isBeingEaten())
@@ -677,10 +537,9 @@ public class GameEngine
                 else {
                     canvas.drawBitmap(AppConstants.getBitmapBank().getBlueGhost(currentFrame), blueGhost.getX() + AppConstants.mazeX, blueGhost.getY() + AppConstants.mazeY, null);
                 }
+                blueGhost.setCurrentFrame(currentFrame);
             }
         }
-
-        blueGhost.setCurrentFrame(currentFrame);
     }
 
     public void updateAndDrawOrangeGhost(Canvas canvas)
@@ -733,30 +592,11 @@ public class GameEngine
             }
             orangeGhost.updateGhostOnGrid();
 
-            //Side Teleport Logic
+            //Side Teleport
             checkAndDoGhostSideTeleporter(orangeGhost);
 
-            //Collision Logic
-            if(hasCollided(orangeGhost))
-            {
-                if(orangeGhost.getState() == Ghost.SCATTER_STATE || orangeGhost.getState() == Ghost.CHASE_STATE)
-                {
-                    pacman.setLives(pacman.getLives() - 1);
-                    gameState = 3;
-                    resetTimer = SystemClock.uptimeMillis();
-
-                }else if(orangeGhost.getState() == Ghost.FRIGHTENED_STATE)
-                {
-                    AppConstants.getSoundBank().playEatGhost();
-                    orangeGhost.setState(Ghost.EATEN_STATE);
-                    gameState = 2;
-                    eatTimer = SystemClock.uptimeMillis();
-                    eatCount++;
-                    AppConstants.score += 200 + (eatCount * 200);
-                    orangeGhost.setBeingEaten(true);
-                }
-            }
-
+            //Collision
+            checkAndDoCollision(orangeGhost);
 
             //Animation Logic
             orangeGhost.setCurrentFrame(calculateNextFrame(orangeGhost));
@@ -924,8 +764,6 @@ public class GameEngine
                 pacman.setCurrentFrame(0);
                 AppConstants.pacmanDirection = AppConstants.LEFT_DIRECTION;
                 AppConstants.getSoundBank().playSiren();
-                pinkyTimer = SystemClock.uptimeMillis() + 100000;
-
             }
         }
         else if(gameState == 1)
@@ -1082,27 +920,37 @@ public class GameEngine
         }
     }
 
-    public Maze getMaze()
-    {
-        return maze;
-    }
+    //Logic Used within Updates
 
-    public Pacman getPacman()
-    {
-        return pacman;
-    }
-
-    private boolean hasCollided(Ghost ghost)
+    private void checkAndDoCollision(Ghost ghost)
     {
         int pacmanWidth = AppConstants.getBitmapBank().getPacmanWidth();
         int ghostWidth = AppConstants.getBitmapBank().getGhostWidth();
         int pacmanHeight = AppConstants.getBitmapBank().getPacmanHeight();
         int ghostHeight = AppConstants.getBitmapBank().getGhostHeight();
 
-        return ((ghost.getX() > pacman.getX() && ghost.getX() < pacman.getX() + pacmanWidth ||
-                (ghost.getX() + ghostWidth > pacman.getX()) && ghost.getX() + ghostWidth < pacman.getX() + pacmanWidth)) &&
-                ((ghost.getY() > pacman.getY() && ghost.getY() < pacman.getY() + pacmanHeight) ||
-                        (ghost.getY() + ghostHeight > pacman.getY() && ghost.getY() + ghostHeight < pacman.getY() + pacmanHeight));
+        if ((ghost.getX() > pacman.getX() && ghost.getX() < pacman.getX() + pacmanWidth ||
+            (ghost.getX() + ghostWidth > pacman.getX()) && ghost.getX() + ghostWidth < pacman.getX() + pacmanWidth) &&
+            ((ghost.getY() > pacman.getY() && ghost.getY() < pacman.getY() + pacmanHeight) ||
+            (ghost.getY() + ghostHeight > pacman.getY() && ghost.getY() + ghostHeight < pacman.getY() + pacmanHeight)))
+        {
+            if(ghost.getState() == Ghost.SCATTER_STATE || ghost.getState() == Ghost.CHASE_STATE)
+            {
+                pacman.setLives(pacman.getLives() - 1);
+                gameState = 3;
+                resetTimer = SystemClock.uptimeMillis();
+
+            }else if(ghost.getState() == Ghost.FRIGHTENED_STATE)
+            {
+                AppConstants.getSoundBank().playEatGhost();
+                ghost.setState(Ghost.EATEN_STATE);
+                gameState = 2;
+                eatTimer = SystemClock.uptimeMillis();
+                eatCount++;
+                AppConstants.score += 200 + (eatCount * 200);
+                ghost.setBeingEaten(true);
+            }
+        }
     }
 
     private int calculateNextFrame(Ghost ghost)
@@ -1162,5 +1010,15 @@ public class GameEngine
             ghost.setDirection(ghost.getDirection());
         }
 
+    }
+
+    public Maze getMaze()
+    {
+        return maze;
+    }
+
+    public Pacman getPacman()
+    {
+        return pacman;
     }
 }

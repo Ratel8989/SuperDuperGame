@@ -23,7 +23,6 @@ public class BitmapBank
     private Bitmap pellet;
     private Bitmap[] powerPellet;
     private Bitmap[] ptEat;
-    private Bitmap ptFruit;
     private Bitmap live;
 
     private Bitmap defaultMaze;

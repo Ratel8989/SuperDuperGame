@@ -36,7 +36,7 @@ public class Pacman
 
     public void setX(int pacmanX) {
         this.pacmanX = pacmanX;
-        this.pacmanY = pacmanRow * AppConstants.getTileSize() - AppConstants.getTileSize() + (AppConstants.isNeumont ? 10 : -10); //-10;
+        this.pacmanY = pacmanRow * AppConstants.getTileSize() - AppConstants.getTileSize() + (AppConstants.isNeumont ? 10 : -10);
     }
 
     public int getY() {

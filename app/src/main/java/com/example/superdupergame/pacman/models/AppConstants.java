@@ -19,8 +19,8 @@ public class AppConstants
     private static GameActivity gameActivity;
     private static SoundBank soundBank;
 
-    public static int SCREEN_WIDTH;
-    public static int SCREEN_HEIGHT;
+    private static int SCREEN_WIDTH;
+    private static int SCREEN_HEIGHT;
 
     public static int mazeX;
     public static int mazeY;
@@ -57,12 +57,13 @@ public class AppConstants
     public static final int NORMAL_SPEED = 6;
     public static final int FAST_SPEED = 30;
 
-    public static boolean isNeumont = false;
+    public static boolean isNeumont;
 
     private static int TILE_SIZE;
 
     public static void initialization(Context context, GameActivity activity)
     {
+        isNeumont = activity.getIntent().getBooleanExtra("neumont", false);
         setScreenSize(context);
         setGameConstants();
         typeface = ResourcesCompat.getFont(context, R.font.emulogic);
@@ -134,5 +135,15 @@ public class AppConstants
     public static int getTileSize()
     {
         return TILE_SIZE;
+    }
+
+    public static int getScreenWidth()
+    {
+        return SCREEN_WIDTH;
+    }
+
+    public static int getSCreenHeight()
+    {
+        return SCREEN_HEIGHT;
     }
 }

@@ -4,45 +4,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2E2E2E"
+    android:scaleX="1"
+    android:scaleY="1"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/anvilButton"
+    <TextView
+        android:id="@+id/titleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="anvil"
-        android:text="anvil"
+        android:fontFamily="@font/emulogic"
+        android:text="Title"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.126" />
+        app:layout_constraintVertical_bias="0.043" />
 
     <Button
-        android:id="@+id/pacmanButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="pacman"
-        android:text="pacman"
+        android:id="@+id/nextButton"
+        android:layout_width="35dp"
+        android:layout_height="42dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/emulogic"
+        android:onClick="nextGame"
+        android:text="R"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.341" />
+
+    <ImageView
+        android:id="@+id/gameImageView"
+        android:layout_width="395dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.255"
+        app:srcCompat="@drawable/anvil_logo" />
 
     <Button
-        android:id="@+id/duckButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="duck"
-        android:text="duck"
+        android:id="@+id/lastButton"
+        android:layout_width="35dp"
+        android:layout_height="42dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/emulogic"
+        android:onClick="lastGame"
+        android:text="L"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.143"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.341" />
 
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="84dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="136dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/emulogic"
+        android:onClick="playGame"
+        android:text="Play"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.675" />
+
+    <TextView
+        android:id="@+id/descriptionTV"
+        android:layout_width="736dp"
+        android:layout_height="105dp"
+        android:fontFamily="@font/emulogic"
+        android:paddingHorizontal="100dp"
+        android:text="You are a slime transported to another world, sadly that world is very plain and anvils are falling from the sky."
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.993" />
+
+    <ToggleButton
+        android:id="@+id/surpriseButton"
+        android:layout_width="40dp"
+        android:layout_height="43dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/emulogic"
+        android:textColor="#000000"
+        android:textOff="?"
+        android:textOn="!"
+        android:onClick="showLlama"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <ImageView
+        android:id="@+id/llama"
+        android:layout_width="82dp"
+        android:layout_height="78dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048" />
 </androidx.constraintlayout.widget.ConstraintLayout>
