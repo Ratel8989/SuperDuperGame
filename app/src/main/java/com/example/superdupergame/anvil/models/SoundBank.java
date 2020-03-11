@@ -21,9 +21,9 @@ public class SoundBank {
     public SoundBank(Context context) {
         hit = MediaPlayer.create(context, R.raw.terrible_sound);
         hit.setVolume(1f,1f);
-        background01 = MediaPlayer.create(context, R.raw.amvil_music_meme1);
+        //background01 = MediaPlayer.create(context, R.raw.amvil_music_meme1);
         background01.setLooping(true);
-        background02 = MediaPlayer.create(context, R.raw.amvil_music_meme2);
+        //background02 = MediaPlayer.create(context, R.raw.amvil_music_meme2);
 
     }
     //.setLooping(true)

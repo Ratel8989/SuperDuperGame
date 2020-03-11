@@ -1,4 +1,4 @@
-package com.example.superdupergame;
+package com.example.superdupergame.anvil;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.superdupergame.MainActivity;
+import com.example.superdupergame.R;
 
 public class AnvilGameOverActivity extends AppCompatActivity {
 

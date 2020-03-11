@@ -1,15 +1,11 @@
 package com.example.superdupergame.anvil;
 
-import android.app.Application;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-import com.example.superdupergame.AnvilGameOverActivity;
 import com.example.superdupergame.anvil.models.*;
-import com.example.superdupergame.duck.models.AppConstant;
 
 import java.util.Random;
 
