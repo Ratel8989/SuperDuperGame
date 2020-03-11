@@ -1,15 +1,11 @@
 package com.example.superdupergame.anvil;
 
-import android.app.Application;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-import com.example.superdupergame.AnvilGameOverActivity;
 import com.example.superdupergame.anvil.models.*;
-import com.example.superdupergame.duck.models.AppConstant;
 
 import java.util.Random;
 
@@ -90,7 +86,7 @@ public class GameEngine {
             }
             canvas.drawText("Lives: " + player.getHealth(), 180, 300, scorePaint);
             if (player.getHealth() < 1) {
-                AppConstants.getSoundBank().stobBackground01();
+                AppConstants.getSoundBank().stopBackground01();
                 gameState = 2;
 
             }
@@ -135,9 +131,14 @@ public class GameEngine {
     }
 
     private void updatePlayer() {
+        Log.d("playerX", player.getX() + "");
+        Log.d("playableX", AppConstants.playableX + "");
         if (AppConstants.direction == -1 && player.getX() > AppConstants.playableX) {
             player.setX(player.getX() - AppConstants.playerSpeed);
-        } else if (AppConstants.direction == 1 && player.getX() + AppConstants.getBitmapBank().getPlayerWidth() < AppConstants.playableX + AppConstants.getBitmapBank().getTestAreaWidth()) {
+            if (player.getX() < AppConstants.playableX){
+                player.setX(AppConstants.playableX);
+            }
+        } else if (AppConstants.direction == 1 && player.getX() + AppConstants.getBitmapBank().getPlayerWidth() + 10 < AppConstants.playableX + AppConstants.getBitmapBank().getTestAreaWidth()) {
             player.setX(player.getX() + AppConstants.playerSpeed);
         }
 

@@ -3,7 +3,6 @@ package com.example.superdupergame.anvil.models;
 public class Player {
     private int xPosition;
     private int yPosition;
-    private int velocity;
     private int health;
     private int squishFrame;
 
@@ -15,7 +14,6 @@ public class Player {
         xPosition = (AppConstants.getBitmapBank().getTestAreaWidth() / 2) + AppConstants.playableX - (AppConstants.getBitmapBank().getPlayerWidth() / 2);
         //Set Starting YPosition
         yPosition = AppConstants.playabley + AppConstants.getBitmapBank().getTestAreaHeight() - AppConstants.getBitmapBank().getPlayerHeight();
-        velocity = 0;
     }
 
     public int getX() {
@@ -33,18 +31,6 @@ public class Player {
 
     public int getY() {
         return yPosition;
-    }
-
-    public void setY(int yPosition) {
-        this.yPosition = yPosition;
-    }
-
-    public int getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(int velocity) {
-        this.velocity = velocity;
     }
 
     public int getHealth() {

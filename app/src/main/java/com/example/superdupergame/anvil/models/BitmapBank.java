@@ -8,12 +8,12 @@ import com.example.superdupergame.R;
 
 public class BitmapBank {
 
-    Bitmap player;//Stores Player Bitmap
-    Bitmap playerSQ1;
-    Bitmap playerSQ2;
-    Bitmap anvil;
-    Bitmap testArea;
-    Bitmap[] squish;
+    private Bitmap player;//Stores Player Bitmap
+    private Bitmap playerSQ1;
+    private Bitmap playerSQ2;
+    private Bitmap anvil;
+    private Bitmap testArea;
+    private Bitmap[] squish;
 
     public BitmapBank(Resources res) //BitmapBank Constructor
     {
