@@ -6,11 +6,14 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.example.superdupergame.duck.models.GameView;
+import com.example.superdupergame.duck.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
     private GameView gameView;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Makes screen full screen
     @Override

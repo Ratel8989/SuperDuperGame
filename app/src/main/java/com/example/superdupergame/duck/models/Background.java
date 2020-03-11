@@ -8,14 +8,24 @@ import com.example.superdupergame.R;
 
 public class Background {
 
-    int x = 0, y = 0;
-    Bitmap background;
+    private int x = 0, y = 0;
+    private Bitmap background;
 
-    Background (int screenX, int screenY, Resources res) {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //Getters and setters
+    public int getX() {return x;}
+    public void setX(int x) {this.x = x;}
+
+    public int getY() {return y;}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Background (int screenX, int screenY, Resources res) {
         background = BitmapFactory.decodeResource(res, R.drawable.background);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, false);
-
     }
 
+    public Bitmap getBackground() {return background;}
 }

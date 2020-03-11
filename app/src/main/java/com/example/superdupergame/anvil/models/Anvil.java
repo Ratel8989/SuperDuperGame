@@ -1,6 +1,7 @@
 package com.example.superdupergame.anvil.models;
 
 import com.example.superdupergame.R;
+import com.example.superdupergame.duck.models.AppConstant;
 
 import java.util.Random;
 import java.util.prefs.AbstractPreferences;
@@ -13,7 +14,7 @@ public class Anvil {
     public Anvil(int startingPos) {
         startingPos = startingPos % 10;
         this.xPosition = AppConstants.playableX + (AppConstants.getBitmapBank().getAnvilWidth() * startingPos);
-        this.yPosition = AppConstants.playabley;
+        this.yPosition = AppConstants.playabley + AppConstants.getBitmapBank().getAnvilHeight();
         this.speed = AppConstants.startingAnvilSpeed;
         this.isActive = false;
     }

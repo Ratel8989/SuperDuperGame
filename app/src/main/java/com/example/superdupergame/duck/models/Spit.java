@@ -7,14 +7,28 @@ import android.graphics.Rect;
 
 import com.example.superdupergame.R;
 
-import static com.example.superdupergame.duck.models.GameView.*;
+import static com.example.superdupergame.duck.GameView.*;
 
 public class Spit {
 
-    int x, y, width, height;
-    Bitmap spit;
+    private int x, y, width, height;
+    private Bitmap spit;
 
-    Spit(Resources res) {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Getters and setters
+    public int getX() {return x;}
+    public void setX(int x) {this.x = x;}
+
+    public int getY() {return y;}
+    public void setY(int y) {this.y = y;}
+
+    public Bitmap getSpit() {return spit;}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Spit(Resources res) {
 
         spit = BitmapFactory.decodeResource(res, R.drawable.spit);
 
@@ -32,6 +46,6 @@ public class Spit {
 
     }
 
-    Rect getCollisionShape() {return new Rect(x, y, x + width, y + height);}
+    public Rect getCollisionShape() {return new Rect(x, y, x + width, y + height);}
 
 }

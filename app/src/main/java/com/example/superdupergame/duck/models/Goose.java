@@ -6,18 +6,43 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 import com.example.superdupergame.R;
-import static com.example.superdupergame.duck.models.GameView.*;
+import static com.example.superdupergame.duck.GameView.*;
 
 public class Goose {
 
-    public int gooseStartXLocation = 25;
-    public boolean wasShot = true;
-    int x = 0, y, width, height, gooseCount = 1;
-    Bitmap goose1, goose2, goose3, goose4, goose5, goose6,goose7, goose8;
-
     private AppConstant appConstant = new AppConstant();
+    private int gooseStartXLocation = 25;
+    private boolean wasShot = true;
+    private int x = 0, y, width, height, gooseCount = 1;
+    private Bitmap goose1, goose2, goose3, goose4, goose5, goose6,goose7, goose8;
 
-    Goose(Resources res) {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Getters and setters
+    public int getGooseStartXLocation() {return gooseStartXLocation;}
+    public void setGooseStartXLocation(int gooseStartXLocation) {this.gooseStartXLocation = gooseStartXLocation;}
+
+    public boolean isWasShot() {return wasShot;}
+    public void setWasShot(boolean wasShot) {this.wasShot = wasShot;}
+
+    public int getX() {return x;}
+    public void setX(int x) {this.x = x;}
+
+    public int getY() {return y;}
+    public void setY(int y) {this.y = y;}
+
+    public int getWidth() {return width;}
+    public void setWidth(int width) {this.width = width;}
+
+    public int getHeight() {return height;}
+
+    public void setHeight(int height) {this.height = height;}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public Goose(Resources res) {
+        //Getting each goose frames for each goose that is created
         goose1 = BitmapFactory.decodeResource(res, R.drawable.goose1);
         goose2 = BitmapFactory.decodeResource(res, R.drawable.goose2);
         goose3 = BitmapFactory.decodeResource(res, R.drawable.goose3);
@@ -27,9 +52,10 @@ public class Goose {
         goose7 = BitmapFactory.decodeResource(res, R.drawable.goose7);
         goose8 = BitmapFactory.decodeResource(res, R.drawable.goose8);
 
-        width = (int)((goose1.getWidth()/appConstant.gooseImgScale)*screenRatioX);
-        height = (int)((goose1.getHeight()/appConstant.gooseImgScale)*screenRatioY);
+        width = (int)((goose1.getWidth()/appConstant.getGooseImgScale())*screenRatioX);
+        height = (int)((goose1.getHeight()/appConstant.getGooseImgScale())*screenRatioY);
 
+        //Setting each goose width and height
         goose1 = Bitmap.createScaledBitmap(goose1, width, height, false);
         goose2 = Bitmap.createScaledBitmap(goose2, width, height, false);
         goose3 = Bitmap.createScaledBitmap(goose3, width, height, false);
@@ -43,7 +69,7 @@ public class Goose {
     }
 
     // Returns goose image per frame
-    Bitmap getGoose() {
+    public Bitmap getGoose() {
 
         if (gooseCount == 1) {
             gooseCount++;
@@ -110,7 +136,7 @@ public class Goose {
         return goose8;
     }
 
-    Rect getCollisionShape(){return new Rect(x, y, x + width, y + height);}
+    public Rect getCollisionShape(){return new Rect(x, y, x + width, y + height);}
 
 }
 
